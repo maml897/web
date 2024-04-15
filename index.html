@@ -7,37 +7,55 @@
 	<body>
 		<script>
 			var cache=[];
+			var datas=[];
+			var setIntervalProcess=2000;
 			
 		    // 创建XMLHttpRequest对象
-		    var xhr = new XMLHttpRequest();
-		 
-		    // 设置请求方式、URL、同步或异步
-		    xhr.open('GET', 'data.json', true);
-		 
-		    // 发送请求
-		    xhr.send();
-		 
-		    // 监听请求状态变化
-		    xhr.onreadystatechange = function() {
-		      if (xhr.readyState === 4 && xhr.status === 200) {
-		        // 成功获取到JSON数据
-		        var jsonStr = xhr.responseText;
-		        var jsonData = JSON.parse(jsonStr);
-		        
-		        // 在这里可以对jsonData进行处理和使用
-		        console.log(jsonData);
-				let datas=jsonData.datas;
-				for (var key in jsonObj) {
-				  var value = jsonObj[key];
-				  if(cache.indexOf(key)==-1){
-						var audio = new Audio(value);
+		    function process(datas){
+		    	datas.forEach(item=>{
+		    		var key=Object.keys(item)[0];
+		    		var value=Object.values(item)[0];
+		    		const targetTime = new Date(key).getTime();
+		    		const currentTime = new Date().getTime();
+		    		if(cache.indexOf(key)==-1 && targetTime<=currentTime){
+		    			var audio = new Audio(value);
 						audio.play();
 						cache.push(key);
-				  }
-				}
-				
-		      }
-		    };
+		    		}
+				});
+		    }
+		    
+		    setInterval(function() {
+		    	process(datas);
+		    }, setIntervalProcess);
+		    
+		    function getdata(){
+			    var xhr = new XMLHttpRequest();
+			    // 设置请求方式、URL、同步或异步
+			    xhr.open('GET', 'data.json', true);
+			 
+			    // 发送请求
+			    xhr.send();
+			 
+			    // 监听请求状态变化
+			    xhr.onreadystatechange = function() {
+			      if (xhr.readyState === 4 && xhr.status === 200) {
+			        // 成功获取到JSON数据
+			        var jsonStr = xhr.responseText;
+			        var jsonData = JSON.parse(jsonStr);
+			        
+			        // 在这里可以对jsonData进行处理和使用
+			        console.log(jsonData);
+			        
+			        datas=jsonData.datas;
+			        setIntervalProcess=jsonData.setIntervalProcess;
+					if(jsonData.setInterval){
+						setTimeout(getdata,jsonData.setInterval)
+					}
+			      }
+			    };
+		    }
+		    getdata();
 		  </script>
 	</body>
 </html>
