@@ -6,7 +6,6 @@
 	</head>
 	<body>
 		<script>
-			var cache=[];
 			var datas=[];
 			var setIntervalProcess=2000;
 			
@@ -17,10 +16,12 @@
 		    		var value=Object.values(item)[0];
 		    		const targetTime = new Date(key).getTime();
 		    		const currentTime = new Date().getTime();
-		    		if(cache.indexOf(key)==-1 && targetTime<=currentTime){
+		    		
+		    		
+		    		if(!getCookie(key) && targetTime<=currentTime){
 		    			var audio = new Audio(value);
 						audio.play();
-						cache.push(key);
+						setCookie(key, key, 30);
 		    		}
 				});
 		    }
@@ -56,6 +57,27 @@
 			    };
 		    }
 		    getdata();
+		    
+		    
+		    
+		    function setCookie(name, value, daysToLive) {
+			    let cookie = name + "=" + encodeURIComponent(value);
+			    if (typeof daysToLive === "number") {
+			        cookie += "; max-age=" + (daysToLive*24*60*60); // max-age单位是秒
+			    }
+			    document.cookie = cookie;
+			}
+			 
+		    function getCookie(name) {
+		        const cookies = document.cookie.split("; ");
+		        for (let i = 0; i < cookies.length; i++) {
+		            const [cookieName, cookieValue] = cookies[i].split("=");
+		            if (name === cookieName) {
+		                return decodeURIComponent(cookieValue);
+		            }
+		        }
+		        return "";
+		    }
 		  </script>
 	</body>
 </html>
