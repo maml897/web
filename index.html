@@ -9,5 +9,28 @@
   	<source src="a.mp3" type="audio/mpeg">
  	 Your browser does not support the audio element.
 </audio>
+
+<script>
+    // 创建XMLHttpRequest对象
+    var xhr = new XMLHttpRequest();
+ 
+    // 设置请求方式、URL、同步或异步
+    xhr.open('GET', 'data.json', true);
+ 
+    // 发送请求
+    xhr.send();
+ 
+    // 监听请求状态变化
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        // 成功获取到JSON数据
+        var jsonStr = xhr.responseText;
+        var jsonData = JSON.parse(jsonStr);
+        
+        // 在这里可以对jsonData进行处理和使用
+        console.log(jsonData);
+      }
+    };
+  </script>
 </body>
 </html>
