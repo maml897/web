@@ -1,4 +1,10 @@
 {
-    "name":"测试",
-    "2024-05":"a.mp3"
+
+	"setIntervalProcess":2000,
+	"setInterval":5000,
+	"datas":[
+		{
+			"2024-04-15 11:40:36":"a.mp3"
+		}
+	]
 }
