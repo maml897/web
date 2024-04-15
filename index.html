@@ -33,7 +33,7 @@
 		    function getdata(){
 			    var xhr = new XMLHttpRequest();
 			    // 设置请求方式、URL、同步或异步
-			    xhr.open('GET', 'data.json', true);
+			    xhr.open('GET', 'data.json?time='+new Date().getTime(), true);
 			 
 			    // 发送请求
 			    xhr.send();
