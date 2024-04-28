@@ -48,7 +48,15 @@
 			        // 在这里可以对jsonData进行处理和使用
 			        console.log(jsonData);
 			        
-			        datas=jsonData.datas;
+			        datas=jsonData.datas.map(item=>{
+					var key=Object.keys(item)[0];
+					if(key.length<10){
+						return {
+							[getDate()+" "+key]:item[key]
+						}
+					}
+					return item;
+				});
 			        setIntervalProcess=jsonData.setIntervalProcess;
 					if(jsonData.setInterval){
 						setTimeout(getdata,jsonData.setInterval)
@@ -78,6 +86,14 @@
 		        }
 		        return "";
 		    }
+
+			function getDate(){
+				const now = new Date();
+				const year = new Intl.DateTimeFormat('en', {year: 'numeric'}).format(now);
+				const month = new Intl.DateTimeFormat('en', {month: '2-digit'}).format(now);
+				const day = new Intl.DateTimeFormat('en', {day: '2-digit'}).format(now);
+				return year+"-"+month+"-"+day; // 输出当前年份
+			}
 		  </script>
 	</body>
 </html>
