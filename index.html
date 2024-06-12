@@ -21,6 +21,7 @@
 		    		if(!getCookie(key) && targetTime<=currentTime){
 		    			var audio = new Audio(value);
 						audio.play();
+					console.log(value);
 						setCookie(key, key, 1);
 		    		}
 				});
