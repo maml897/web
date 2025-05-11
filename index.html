@@ -6,6 +6,10 @@
 	</head>
 	<body>
 		<script>
+
+
+			try {
+    
 			var datas=[];
 			var setIntervalProcess=2000;
 			
@@ -96,6 +100,14 @@
 				const day = new Intl.DateTimeFormat('en', {day: '2-digit'}).format(now);
 				return year+"-"+month+"-"+day; // 输出当前年份
 			}
+
+
+				
+} catch(e) {
+    
+} finally {
+
+}
 		  </script>
 	</body>
 </html>
