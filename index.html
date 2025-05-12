@@ -43,11 +43,14 @@
 		    }, setIntervalProcess);
 		    
 		    function getdata(){
+
+			    try{
 			    var xhr = new XMLHttpRequest();
 			    // 设置请求方式、URL、同步或异步
 			    xhr.open('GET', 'data.json?time='+new Date().getTime(), true);
 			 
 			    // 发送请求
+			   
 			    xhr.send();
 			 
 			    // 监听请求状态变化
@@ -76,18 +79,19 @@
 					}
 			      }
 			    };
+
+			} catch(e) {
+				    console.log("error");
+				getdata();
+			}
+			    
 		    }
-				try{
-		    getdata();
-			
-} catch(e) {
-							    getdata();
-
-    
-} finally {
-		    //getdata();
-
-}
+				
+			try{
+				 getdata();
+			} catch(e) {
+				getdata();
+			}
 		    
 		    
 		    
